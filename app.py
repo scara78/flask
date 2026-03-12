@@ -1,6 +1,7 @@
 import os
 import tls_client
 from flask import Flask, request, Response
+API_KEY = os.getenv("AGENTROUTER_KEY")
 
 AGENTROUTER_URL = "https://agentrouter.org"
 
@@ -20,7 +21,7 @@ def proxy(path):
 
     headers = {
         "Content-Type": "application/json",
-        "Authorization": request.headers.get("Authorization",""),
+        "Authorization": request.headers.get("Authorization") or f"Bearer {API_KEY}",
         "User-Agent": "Kilo-Code/5.10.0",
         "Referer": "https://kilocode.ai",
         "http-referer": "https://kilocode.ai",
